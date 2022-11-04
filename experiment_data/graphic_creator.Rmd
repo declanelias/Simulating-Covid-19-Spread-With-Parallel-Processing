@@ -1,0 +1,387 @@
+---
+title: "Graphic"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidymodels)
+```
+
+```{r}
+SIR = read_tsv("graphic.tsv")
+SIR = SIR %>%
+  drop_na()
+
+SIR = SIR[SIR$Day != "Day",]
+
+SIR = lapply(SIR, as.numeric)
+SIR = as.data.frame(SIR)
+```
+
+```{r}
+SIR %>%
+  group_by(Day) %>%
+  summarise(Infected = mean(Infected) / 10000,
+            Susceptible = mean(Susceptible) / 10000,
+            Recovered = mean(Recovered) / 10000) %>%
+  ggplot(aes(x = 0:max(Day), y = Recovered, color = "green")) +
+  geom_line() +
+  geom_line(aes(x = 0:max(Day), y = Susceptible, color = "blue")) +
+  geom_line(aes(x = 0:max(Day), y = Infected, color = "red")) +
+  xlab("Days") + 
+  ylab("Proportion of Population") + 
+  scale_color_manual(values = c("blue", "green","red"),
+                     labels = c("Susceptible", "Recovered", "Infected")) + 
+  labs(title = "Covid-19 SIR Model") + 
+  theme_bw()
+```
+
+```{r}
+SIR_2 = read_tsv("graphics_4.tsv")
+SIR_2 = SIR_2 %>%
+  drop_na()
+
+SIR_2 = SIR_2[SIR_2$Day != "Day",]
+
+SIR_2 = lapply(SIR_2, as.numeric)
+SIR_2 = as.data.frame(SIR_2)
+
+SIR = SIR_2 %>%
+  group_by(Day) %>%
+  summarise(Infected = mean(Infected) / 10000,
+            Susceptible = mean(Susceptible) / 10000,
+            Recovered = mean(Recovered) / 10000) %>%
+  ggplot(aes(x = 0:max(Day), y = Recovered, color = "green")) +
+  geom_line() +
+  geom_line(aes(x = 0:max(Day), y = Susceptible, color = "blue")) +
+  geom_line(aes(x = 0:max(Day), y = Infected, color = "red")) +
+  xlab("Days") + 
+  ylab("Proportion of Population") + 
+  
+  scale_color_manual(values = c("blue", "green","red"),
+                     labels = c("Susceptible", "Recovered", "Infected")) + 
+  labs(title = "Covid-19 SIR Model", color = "Legend") + 
+  theme_bw()
+```
+
+
+```{r}
+SIRV_01 = read_tsv("graphics_vaccinated_01.tsv")
+SIRV_01 = SIRV_01 %>%
+  drop_na()
+
+SIRV_01 = SIRV_01[SIRV_01$Day != "Day",]
+
+SIRV_01 = lapply(SIRV_01, as.numeric)
+SIRV_01 = as.data.frame(SIRV_01)
+
+SIRV_01 = SIRV_01 %>%
+  group_by(Day) %>%
+  summarise(Infected = mean(Infected) / 10000,
+            Susceptible = mean(Susceptible) / 10000,
+            Recovered = mean(Recovered) / 10000,
+            Vaccinated = mean(Vaccinated) / 10000) %>%
+  ggplot(aes(x = 0:max(Day), y = Recovered, color = "green")) +
+  geom_line() +
+  geom_line(aes(x = 0:max(Day), y = Susceptible, color = "blue")) +
+  geom_line(aes(x = 0:max(Day), y = Infected, color = "red")) +
+  geom_line(aes(x = 0:max(Day), y = Vaccinated, color = "orange")) +
+  xlab("Days") + 
+  ylab("Proportion of Population") + 
+  scale_color_manual(values = c("blue", "green","orange", "red"),
+                     labels = c("Susceptible", "Recovered", "Vaccinated", "Infected")) + 
+  labs(title = "Covid-19 SIRV Model With Vaccination Rate of .001", color = "Legend") + 
+  theme_bw()
+```
+
+```{r}
+SIRV_02 = read_tsv("graphics_vaccinated_02.tsv")
+SIRV_02 = SIRV_02 %>%
+  drop_na()
+
+SIRV_02 = SIRV_02[SIRV_02$Day != "Day",]
+
+SIRV_02 = lapply(SIRV_02, as.numeric)
+SIRV_02 = as.data.frame(SIRV_02)
+
+SIRV_02 = SIRV_02 %>%
+  group_by(Day) %>%
+  summarise(Infected = mean(Infected) / 10000,
+            Susceptible = mean(Susceptible) / 10000,
+            Recovered = mean(Recovered) / 10000,
+            Vaccinated = mean(Vaccinated) / 10000) %>%
+  ggplot(aes(x = 0:max(Day), y = Recovered, color = "green")) +
+  geom_line() +
+  geom_line(aes(x = 0:max(Day), y = Susceptible, color = "blue")) +
+  geom_line(aes(x = 0:max(Day), y = Infected, color = "red")) +
+  geom_line(aes(x = 0:max(Day), y = Vaccinated, color = "orange")) +
+  xlab("Days") + 
+  ylab("Proportion of Population") + 
+  scale_color_manual(values = c("blue", "green","orange", "red"),
+                     labels = c("Susceptible", "Recovered", "Vaccinated", "Infected")) + 
+  labs(title = "Covid-19 SIRV Model With Vaccination Rate of .002", color = "Legend") + 
+  theme_bw()
+```
+
+```{r}
+SIRV_03 = read_tsv("graphics_vaccinated_03.tsv")
+SIRV_03 = SIRV_03 %>%
+  drop_na()
+
+SIRV_03 = SIRV_03[SIRV_03$Day != "Day",]
+
+SIRV_03 = lapply(SIRV_03, as.numeric)
+SIRV_03 = as.data.frame(SIRV_03)
+
+SIRV_03 = SIRV_03 %>%
+  group_by(Day) %>%
+  summarise(Infected = mean(Infected) / 10000,
+            Susceptible = mean(Susceptible) / 10000,
+            Recovered = mean(Recovered) / 10000,
+            Vaccinated = mean(Vaccinated) / 10000) %>%
+  ggplot(aes(x = 0:max(Day), y = Recovered, color = "green")) +
+  geom_line() +
+  geom_line(aes(x = 0:max(Day), y = Susceptible, color = "blue")) +
+  geom_line(aes(x = 0:max(Day), y = Infected, color = "red")) +
+  geom_line(aes(x = 0:max(Day), y = Vaccinated, color = "orange")) +
+  xlab("Days") + 
+  ylab("Proportion of Population") + 
+  scale_color_manual(values = c("blue", "green","orange", "red"),
+                     labels = c("Susceptible", "Recovered", "Vaccinated", "Infected")) + 
+  labs(title = "Covid-19 SIRV Model With Vaccination Rate of .003", color = "Legend") + 
+  theme_bw()
+```
+```{r}
+SIRV_04 = read_tsv("graphics_vaccinated_04.tsv")
+SIRV_04 = SIRV_04 %>%
+  drop_na()
+
+SIRV_04 = SIRV_04[SIRV_04$Day != "Day",]
+
+SIRV_04 = lapply(SIRV_04, as.numeric)
+SIRV_04 = as.data.frame(SIRV_04)
+
+SIRV_04 = SIRV_04 %>%
+  group_by(Day) %>%
+  summarise(Infected = mean(Infected) / 10000,
+            Susceptible = mean(Susceptible) / 10000,
+            Recovered = mean(Recovered) / 10000,
+            Vaccinated = mean(Vaccinated) / 10000) %>%
+  ggplot(aes(x = 0:max(Day), y = Recovered, color = "green")) +
+  geom_line() +
+  geom_line(aes(x = 0:max(Day), y = Susceptible, color = "blue")) +
+  geom_line(aes(x = 0:max(Day), y = Infected, color = "red")) +
+  geom_line(aes(x = 0:max(Day), y = Vaccinated, color = "orange")) +
+  xlab("Days") + 
+  ylab("Proportion of Population") + 
+  scale_color_manual(values = c("blue", "green","orange", "red"),
+                     labels = c("Susceptible", "Recovered", "Vaccinated", "Infected")) + 
+  labs(title = "Covid-19 SIRV Model With Vaccination Rate of .004", color = "Legend") + 
+  theme_bw()
+```
+
+
+```{r}
+SIRV_05 = read_tsv("graphics_vaccinated_05.tsv")
+SIRV_05 = SIRV_05 %>%
+  drop_na()
+
+SIRV_05 = SIRV_05[SIRV_05$Day != "Day",]
+
+SIRV_05 = lapply(SIRV_05, as.numeric)
+SIRV_05 = as.data.frame(SIRV_05)
+
+SIRV_05 = SIRV_05 %>%
+  group_by(Day) %>%
+  summarise(Infected = mean(Infected) / 10000,
+            Susceptible = mean(Susceptible) / 10000,
+            Recovered = mean(Recovered) / 10000,
+            Vaccinated = mean(Vaccinated) / 10000) %>%
+  ggplot(aes(x = 0:max(Day), y = Recovered, color = "green")) +
+  geom_line() +
+  geom_line(aes(x = 0:max(Day), y = Susceptible, color = "blue")) +
+  geom_line(aes(x = 0:max(Day), y = Infected, color = "red")) +
+  geom_line(aes(x = 0:max(Day), y = Vaccinated, color = "orange")) +
+  xlab("Days") + 
+  ylab("Proportion of Population") + 
+  scale_color_manual(values = c("blue", "green","orange", "red"),
+                     labels = c("Susceptible", "Recovered", "Vaccinated", "Infected")) + 
+  labs(title = "Covid-19 SIRV Model With Vaccination Rate of .005", color = "Legend") + 
+  theme_bw()
+```
+
+
+```{r}
+library(gridExtra)
+grid.arrange(SIR, SIRV_01, SIRV_02, SIRV_03, SIRV_04, SIRV_05, ncol=2)
+
+SIR
+SIRV_01
+SIRV_02
+SIRV_03
+SIRV_04
+SIRV_05
+```
+
+
+
+```{r}
+covid = read.csv("covid_confirmed_usafacts.csv")
+
+covid = covid %>%
+  filter(State == "MN") %>%
+  drop_na()
+
+covid = covid[-c(1,2,3,4)]
+
+covid = as.data.frame(t(covid))
+
+covid$total_cases = rowSums(covid)
+covid = covid %>%
+  select(total_cases)
+
+covid$new_cases = rep(0, nrow(covid))
+
+
+for (i in 1:nrow(covid)) {
+  if (i != 1) {
+    covid$new_cases[i] = covid$total_cases[i] - covid$total_cases[i - 1]
+  }
+}
+
+ma = function(x, n = 7) {stats::filter(x, rep(1/n, n), sides = 2)}
+
+covid = covid %>%
+  mutate(new_cases = ma(new_cases)) %>%
+  drop_na()
+
+covid %>%
+  ggplot(aes(x = 1:nrow(covid), y = new_cases)) +
+  geom_line()
+
+covid = covid %>% slice(-c(1:250))
+
+covid = covid %>% slice(c(1:92))
+
+covid %>%
+  ggplot(aes(x = 1:nrow(covid), y = new_cases)) + 
+  geom_line() + 
+  theme_bw()
+```
+
+```{r}
+covid_simulation = read_tsv("covid_simulation.tsv")
+
+covid_sim1 = covid_simulation %>%
+  group_by(Day) %>%
+  summarise(Infected = mean(Infected)) %>%
+  slice(1:92) %>%
+  ggplot(aes(x = 1:92, y = Infected, color = "red")) +
+  geom_line() + 
+  geom_line(aes(x = 1:92, y = covid$new_cases, color = "blue")) +
+  scale_color_manual(values = c("red", "blue"),
+                     labels = c("True Cases", "Modeled Cases")) + 
+  xlab("Days since 10/01/2020") + 
+  labs(title = "-t .307") +
+  theme_bw()
+```
+
+
+```{r}
+covid_simulation2 = read_tsv("covid_simulation2.tsv")
+
+covid_sim2 = covid_simulation2 %>%
+  group_by(Day) %>%
+  summarise(Infected = mean(Infected)) %>%
+  slice(1:92) %>%
+  ggplot(aes(x = 1:92, y = Infected, color = "red")) +
+  geom_line() + 
+  geom_line(aes(x = 1:92, y = covid$new_cases, color = "blue")) +
+  scale_color_manual(values = c("red", "blue"),
+                     labels = c("True Cases", "Modeled Cases")) + 
+  xlab("Days since 10/01/2020") + 
+  labs(title = "-t .1") +
+  theme_bw()
+```
+
+```{r}
+covid_simulation3 = read_tsv("covid_simulation3.tsv")
+
+covid_sim3 = covid_simulation3 %>%
+  group_by(Day) %>%
+  summarise(Infected = mean(Infected)) %>%
+  slice(1:92) %>%
+  ggplot(aes(x = 1:92, y = Infected, color = "red")) +
+  geom_line() + 
+  geom_line(aes(x = 1:92, y = covid$new_cases, color = "blue")) +
+  scale_color_manual(values = c("red", "blue"),
+                     labels = c("True Cases", "Modeled Cases")) + 
+  xlab("Days since 10/01/2020") + 
+  labs(title = "-t .2") +
+  theme_bw()
+```
+
+
+```{r}
+grid.arrange(covid_sim1, covid_sim3, covid_sim2 , ncol = 2)
+```
+
+
+
+```{r}
+infection_simulation0 = read_tsv("infection_simulation0.tsv")
+infection_simulation0$nu = 0
+
+infection_simulation0 = lapply(infection_simulation0, as.numeric)
+infection_simulation0 = as.data.frame(infection_simulation0)
+
+infection_simulation2 = read_tsv("infection_simulation2.tsv")
+infection_simulation2$nu = .2
+
+infection_simulation2 = lapply(infection_simulation2, as.numeric)
+infection_simulation2 = as.data.frame(infection_simulation2)
+
+infection_simulation4 = read_tsv("infection_simulation4.tsv")
+infection_simulation4$nu = .4
+
+infection_simulation4 = lapply(infection_simulation4, as.numeric)
+infection_simulation4 = as.data.frame(infection_simulation4)
+
+infection_simulation6 = read_tsv("infection_simulation6.tsv")
+infection_simulation6$nu = .6
+
+infection_simulation6 = lapply(infection_simulation6, as.numeric)
+infection_simulation6 = as.data.frame(infection_simulation6)
+
+infection_simulation8 = read_tsv("infection_simulation8.tsv")
+infection_simulation8$nu = .8
+
+infection_simulation8 = lapply(infection_simulation8, as.numeric)
+infection_simulation8 = as.data.frame(infection_simulation0)
+
+infection_simulation1 = read_tsv("infection_simulation1.tsv")
+infection_simulation1$nu = 1
+
+infection_simulation1 = lapply(infection_simulation1, as.numeric)
+infection_simulation1 = as.data.frame(infection_simulation0)
+
+infection_simulation = rbind(infection_simulation0, infection_simulation2, infection_simulation4, 
+                             infection_simulation6, infection_simulation8, infection_simulation1)
+
+
+infection_simulation %>%
+  group_by(nu, Trial) %>%
+  summarise(infected = max(Infected)) %>%
+  group_by(nu) %>%
+  summarise(avg_infected = mean(infected))
+
+
+```
+

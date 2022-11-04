@@ -30,4 +30,4 @@ and can be run with
 
 ## Analysis
 
-[Analysis](https://docs.google.com/document/d/1syEkue6cQk2FNfN7PeGRPmreaU_iHkjwF8Soh_ehRv0/edit?usp=sharing)
+[Project Write-Up](https://docs.google.com/document/d/1syEkue6cQk2FNfN7PeGRPmreaU_iHkjwF8Soh_ehRv0/edit?usp=sharing)

@@ -27,4 +27,7 @@ and can be run with
     and can be run with:
     
     ./GPUmodle -n <dimension> -k <infection length> -t <transmissability rate> -v <vaccination rate>
-    
+
+## Analysis
+
+[Analysis](https://docs.google.com/document/d/1syEkue6cQk2FNfN7PeGRPmreaU_iHkjwF8Soh_ehRv0/edit?usp=sharing)
